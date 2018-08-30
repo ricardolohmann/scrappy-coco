@@ -69,7 +69,7 @@ DOWNLOAD_DELAY = 5
 # Configure item pipelines
 # See https://doc.scrapy.org/en/latest/topics/item-pipeline.html
 ITEM_PIPELINES = {
-   'scrappy_coco.pipelines.MongoDBPipeline': 800,
+#    'scrappy_coco.pipelines.MongoDBPipeline': 800,
 }
 
 # Enable and configure the AutoThrottle extension (disabled by default)
