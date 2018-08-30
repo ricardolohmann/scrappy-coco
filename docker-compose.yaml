@@ -1,0 +1,7 @@
+version: "2"
+services:
+  app:
+    build: .
+    command: "scrapy crawl fundly -o fundly.json"
+    volumes:
+      - .:/code
