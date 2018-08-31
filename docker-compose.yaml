@@ -2,6 +2,6 @@ version: "2"
 services:
   app:
     build: .
-    command: "scrapy crawl fundly -o fundly.json"
+    command: "scrapy crawl reddit -o reddit.json"
     volumes:
       - .:/code

@@ -29,3 +29,10 @@ class FundlyItem(scrapy.Item):
     country = scrapy.Field()
     funded_money = scrapy.Field()
     currency = scrapy.Field()
+
+class RedditItem(scrapy.Item):
+    upvotes = scrapy.Field()
+    subreddit = scrapy.Field()
+    title = scrapy.Field()
+    thread_url = scrapy.Field()
+    comments_url = scrapy.Field()
