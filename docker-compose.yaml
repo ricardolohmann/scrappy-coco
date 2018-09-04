@@ -1,7 +1,11 @@
-version: "2"
+version: "3"
 services:
+
   app:
     build: .
     command: "scrapy crawl reddit -o reddit.json -a subreddits=cats;brazil;worldnews"
     volumes:
-      - .:/code
+      - code:/code
+
+volumes:
+  code:
