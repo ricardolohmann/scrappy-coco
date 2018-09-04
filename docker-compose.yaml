@@ -2,10 +2,14 @@ version: "3"
 services:
 
   app:
-    build: .
-    command: "scrapy crawl reddit -o reddit.json -a subreddits=cats;brazil;worldnews"
+    build: scrappy_coco
+    # command: "scrapy crawl reddit -o reddit.json -a subreddits=cats;brazil;worldnews"
     volumes:
       - code:/code
+
+  telegram:
+    build: telegram
+    command: "python bot.py"
 
 volumes:
   code:
