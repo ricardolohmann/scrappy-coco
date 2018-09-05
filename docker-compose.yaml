@@ -10,6 +10,8 @@ services:
   telegram:
     build: telegram
     command: "python bot.py"
+    ports:
+      - "80:80"
 
 volumes:
   code:
