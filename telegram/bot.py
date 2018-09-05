@@ -1,4 +1,12 @@
+import logging
+
 from telegram.ext import Updater, CommandHandler
+
+from settings import TELEGRAM_TOKEN
+
+
+logger = logging.getLogger()
+logger.setLevel(logging.INFO)
 
 
 def hello(bot, update):
@@ -6,7 +14,7 @@ def hello(bot, update):
         'Hello {}'.format(update.message.from_user.first_name))
 
 
-updater = Updater('YOUR TOKEN HERE')
+updater = Updater(TELEGRAM_TOKEN)
 
 updater.dispatcher.add_handler(CommandHandler('hello', hello))
 
