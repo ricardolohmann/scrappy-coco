@@ -3,13 +3,16 @@ services:
 
   app:
     build: scrappy_coco
-    # command: "scrapy crawl reddit -o reddit.json -a subreddits=cats;brazil;worldnews"
     volumes:
       - code:/code
+    ports:
+      - "9080:9080"
 
   telegram:
     build: telegram
     command: "python bot.py"
+    depends_on:
+      - app
 
 volumes:
   code:
