@@ -8,26 +8,44 @@ from telegram.ext import Updater, CommandHandler
 import settings
 
 
-def request_spider_data(bot, update):
+formatter = logging.Formatter(
+    fmt='%(levelname)s %(asctime)s : %(module)s - %(message)s'
+)
+
+handler = logging.StreamHandler()
+handler.setFormatter(formatter)
+
+logger = logging.getLogger(__name__)
+logger.setLevel(logging.INFO)
+logger.addHandler(handler)
+
+
+def request_subreddits_data(bot, update, args):
     # type: (telegram.ext.Bot, telegram.ext.Update) -> None
     """Request reddit Spider data."""
-    logging.info('Request Spider Data')
+    logger.info('Request Spider Data')
     conn = http.client.HTTPConnection(settings.SCRAPPY_COCO_URL,
                                       settings.SCRAPPY_COCO_PORT)
+
+    # build URL
+    subreddits = args[0]
     params = urllib.parse.urlencode({'spider_name': 'reddit',
-                                     'start_requests': True})
+                                     'start_requests': True,
+                                     'subreddits': subreddits})
     conn.request('GET', '/crawl.json?' + params)
 
+    # request data
     response = conn.getresponse()
     response_data = response.read().decode('utf-8')
 
+    # reply user message
     send_telegram_message(bot, update, json.loads(response_data))
 
 
 def send_telegram_message(bot, update, data):
     # type: (telegram.ext.Bot, telegram.ext.Update, dict[str, Any]) -> None
-    logging.info('Send Telegram Message')
-    logging.debug(data)
+    logger.info('Send Telegram Message')
+    logger.debug(data)
     for thread in data['items']:
         bot.send_message(chat_id=update.message.chat.id,
                          text=thread,
@@ -37,7 +55,7 @@ def send_telegram_message(bot, update, data):
 # set bot commands
 updater = Updater(settings.TELEGRAM_TOKEN)
 updater.dispatcher.add_handler(
-    CommandHandler('nada_pra_fazer', request_spider_data)
+    CommandHandler('nada_pra_fazer', request_subreddits_data, pass_args=True)
 )
 
 # start pooling messages
