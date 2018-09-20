@@ -1,23 +1,20 @@
 import http.client
 import json
 import logging
+import logging.config
 import urllib.parse
+import yaml
 
 from telegram.ext import Updater, CommandHandler
 
 import settings
 
 
-formatter = logging.Formatter(
-    fmt='%(levelname)s %(asctime)s : %(module)s - %(message)s'
-)
-
-handler = logging.StreamHandler()
-handler.setFormatter(formatter)
-
+with open('logging.yaml', 'rt') as f:
+    config = yaml.safe_load(f.read())
+logging.config.dictConfig(config)
 logger = logging.getLogger(__name__)
-logger.setLevel(logging.INFO)
-logger.addHandler(handler)
+logger.debug(__name__)
 
 
 def request_subreddits_data(bot, update, args):

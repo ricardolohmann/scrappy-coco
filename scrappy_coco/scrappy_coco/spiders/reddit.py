@@ -1,11 +1,19 @@
 # -*- coding: utf-8 -*-
+import logging
+import logging.config
 import scrapy
+import yaml
 
 from scrappy_coco.items import RedditItem
 
 
 REDDIT_URL = 'http://old.reddit.com'
 SUBREDDIT_URL = 'http://old.reddit.com/r/{0}'
+
+with open('logging.yaml', 'rt') as f:
+    config = yaml.safe_load(f.read())
+logging.config.dictConfig(config)
+logger = logging.getLogger(__name__)
 
 
 class RedditSpider(scrapy.Spider):
@@ -15,6 +23,9 @@ class RedditSpider(scrapy.Spider):
     def __init__(self, subreddits='', **kwargs):
         subreddits = subreddits.split(';')
         self.start_urls = self.get_start_urls(subreddits)
+
+        logger.info('Subreddits: %s', ', '.join(subreddits))
+        logger.info('Start URLs: %s', ', '.join(self.start_urls))
 
     def parse(self, response):
         for thread in response.css('#siteTable .thing'):
