@@ -10,6 +10,7 @@ from telegram.ext import Updater, CommandHandler
 import settings
 
 
+# Init logging
 with open('logging.yaml', 'rt') as f:
     config = yaml.safe_load(f.read())
 logging.config.dictConfig(config)

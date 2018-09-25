@@ -4,7 +4,7 @@ services:
   app:
     build: scrappy_coco
     volumes:
-      - code:/code
+      - .:/code
     ports:
       - "9080:9080"
 
@@ -13,6 +13,3 @@ services:
     command: "python bot.py"
     depends_on:
       - app
-
-volumes:
-  code:

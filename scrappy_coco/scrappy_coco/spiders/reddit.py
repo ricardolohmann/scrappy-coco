@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 import logging
 import logging.config
+import os.path
 import scrapy
 import yaml
 
@@ -10,7 +11,9 @@ from scrappy_coco.items import RedditItem
 REDDIT_URL = 'http://old.reddit.com'
 SUBREDDIT_URL = 'http://old.reddit.com/r/{0}'
 
-with open('logging.yaml', 'rt') as f:
+# Init logging
+logging_file = os.path.dirname(__file__) + '/../logging.yaml'
+with open(logging_file, 'rt') as f:
     config = yaml.safe_load(f.read())
 logging.config.dictConfig(config)
 logger = logging.getLogger(__name__)
