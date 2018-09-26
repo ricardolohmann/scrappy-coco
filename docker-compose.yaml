@@ -4,12 +4,14 @@ services:
   app:
     build: scrappy_coco
     volumes:
-      - .:/code
+      - ./scrappy_coco:/code
     ports:
       - "9080:9080"
 
   telegram:
     build: telegram
     command: "python bot.py"
+    volumes:
+      - ./telegram:/code
     depends_on:
       - app
