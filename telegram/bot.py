@@ -15,7 +15,6 @@ with open('logging.yaml', 'rt') as f:
     config = yaml.safe_load(f.read())
 logging.config.dictConfig(config)
 logger = logging.getLogger(__name__)
-logger.debug(__name__)
 
 
 def request_subreddits_data(bot, update, args):
@@ -28,9 +27,11 @@ def request_subreddits_data(bot, update, args):
     # build URL
     subreddits = args[0]
     params = urllib.parse.urlencode({'spider_name': 'reddit',
-                                     'start_requests': True,
+                                     'start_requests': False,
                                      'subreddits': subreddits})
-    conn.request('GET', '/crawl.json?' + params)
+    url = '/crawl.json?' + params
+    conn.request('GET', url)
+    logger.debug('URL: %s', url)
 
     # request data
     response = conn.getresponse()

@@ -27,9 +27,6 @@ class RedditSpider(scrapy.Spider):
         subreddits = subreddits.split(';')
         self.start_urls = self.get_start_urls(subreddits)
 
-        logger.info('Subreddits: %s', ', '.join(subreddits))
-        logger.info('Start URLs: %s', ', '.join(self.start_urls))
-
     def parse(self, response):
         for thread in response.css('#siteTable .thing'):
             yield self.parse_thread(thread)
