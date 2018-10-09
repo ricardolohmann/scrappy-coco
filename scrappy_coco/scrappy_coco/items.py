@@ -34,5 +34,5 @@ class RedditItem(scrapy.Item):
     upvotes = scrapy.Field()
     subreddit = scrapy.Field()
     title = scrapy.Field()
-    thread_url = scrapy.Field()
+    url = scrapy.Field()
     comments_url = scrapy.Field()

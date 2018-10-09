@@ -27,7 +27,7 @@ def request_subreddits_data(bot, update, args):
     # build URL
     subreddits = args[0]
     params = urllib.parse.urlencode({'spider_name': 'reddit',
-                                     'start_requests': False,
+                                     'start_requests': True,
                                      'subreddits': subreddits})
     url = '/crawl.json?' + params
     conn.request('GET', url)
@@ -44,11 +44,12 @@ def request_subreddits_data(bot, update, args):
 def send_telegram_message(bot, update, data):
     # type: (telegram.ext.Bot, telegram.ext.Update, dict[str, Any]) -> None
     logger.info('Send Telegram Message')
-    logger.debug(data)
     for thread in data['items']:
         bot.send_message(chat_id=update.message.chat.id,
                          text=thread,
                          reply_to_message_id=update.message.message_id)
+    else:
+        logger.info('There are\'t items to send')
 
 
 # set bot commands

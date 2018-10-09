@@ -23,10 +23,12 @@ USER_AGENT = 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_5) AppleWebKit/537.36
 CONCURRENT_REQUESTS = 1
 
 # Configure Database
-DATABASE_SERVER = "localhost"
+DATABASE_SERVER = "172.20.0.2"
 DATABASE_PORT = 27017
 DATABASE_DB = "scrappy_coco"
-DATABASE_COLLECTION = "comments"
+DATABASE_COLLECTION = "reddits"
+DATABASE_USER = 'root'
+DATABASE_PASSWORD = 'example'
 
 # Configure a delay for requests for the same website (default: 0)
 # See https://doc.scrapy.org/en/latest/topics/settings.html#download-delay
@@ -69,7 +71,7 @@ DOWNLOAD_DELAY = 5
 # Configure item pipelines
 # See https://doc.scrapy.org/en/latest/topics/item-pipeline.html
 ITEM_PIPELINES = {
-#    'scrappy_coco.pipelines.MongoDBPipeline': 800,
+   'scrappy_coco.pipelines.MongoDBPipeline': 100,
 }
 
 # Enable and configure the AutoThrottle extension (disabled by default)
