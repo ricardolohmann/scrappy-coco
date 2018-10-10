@@ -1,0 +1,26 @@
+global:
+  scrape_interval: 1m
+  scrape_timeout: 10s
+  evaluation_interval: 1m
+  external_labels:
+      monitor: 'my-monitor'
+
+rule_files:
+  - '/etc/prometheus/alert_rules.yml'
+
+scrape_configs:
+  - job_name: 'prometheus'
+    scrape_interval: 5s
+    static_configs:
+    - targets: ['localhost:9090']
+
+  - job_name: 'node-exporter'
+    scrape_interval: 5s
+    static_configs:
+      - targets: ['node-exporter:9100']
+        labels:
+          group: 'exporter'
+  # - job_name: 'cadvisor-exporter'
+  #   scrape_interval: 1s
+  #   target_groups:
+  #     - targets: ['cadvisor-exporter:9200']

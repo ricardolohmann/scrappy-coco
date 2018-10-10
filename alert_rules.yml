@@ -1,0 +1,11 @@
+ALERT containerAlert
+    IF absent(((time() - container_last_seen{name="mongodb"}) < 5)) FOR 5s
+    LABELS { severity="page" }
+    ANNOTATIONS {
+    	SUMMARY = "Instance {{$labels.instance}} down",
+    	DESCRIPTION = "Instance= {{$labels.instance}}, Service/Job ={{$labels.job}} is down for more than 2 sec."
+    }
+    
+ALERT DiskWillFillIn4Hours
+   IF predict_linear(node_filesystem_free{job='node'}[1h], 4*3600) < 0 FOR 5m
+    LABELS { severity="page" }
